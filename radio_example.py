@@ -29,39 +29,39 @@ while True:
     if button_up.value() == 0:
         
         #manual mode
-        radio.set_frequency(radio.frequency+0.1)
+        #radio.set_frequency(radio.frequency+0.1)
         #auto mode
-        #radio.search(True, dir=1, adc=7)
-        #sleep(2)
+        radio.set_frequency(radio.frequency+0.1)
+        radio.search(True, dir=1, adc=7)
+        sleep(2)
         
+        if radio.frequency>=108.0:
+            radio.set_frequency(88.0)
+            
         radio.read()
         print('Frequency: FM {}\nReady: {}\nStereo: {}\nADC level: {}'.format(
             radio.frequency, radio.is_ready,  radio.is_stereo, radio.signal_adc_level
             ))
-        
-        if radio.frequency==108.0:
-            radio.set_frequency(88.0)
         lcd.putstr("Radio:"+str(radio.frequency)+"   \n")
         lcd.putstr("Signal:"+str(radio.signal_adc_level)+"   \n")
         sleep(0.1)
     if button_down.value() == 0:
         
         #manual mode
-        radio.set_frequency(radio.frequency-0.1)
+        #radio.set_frequency(radio.frequency-0.1)
         #auto mode
-        #radio.search(True, dir=0, adc=7)
-        #sleep(2)
+        radio.set_frequency(radio.frequency-0.1)
+        radio.search(True, dir=0, adc=7)
+        sleep(2)
         
-        
+        if radio.frequency<=88.0:
+            radio.set_frequency(108.0)
+            
         radio.read()
         print('Frequency: FM {}\nReady: {}\nStereo: {}\nADC level: {}'.format(
             radio.frequency, radio.is_ready,  radio.is_stereo, radio.signal_adc_level
             ))
         
-        
-        if radio.frequency==88.0:
-            radio.set_frequency(108.0)
         lcd.putstr("Radio:"+str(radio.frequency)+"   \n")
         lcd.putstr("Signal:"+str(radio.signal_adc_level)+"   \n")
         sleep(0.1)
-
